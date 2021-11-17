@@ -20,7 +20,8 @@ exports.config = {
   // then the current working directory is where your `package.json` resides, so `wdio`
   // will be called from there.
   //
-  specs: ["./test/specs/**/*.js"],
+  // specs: ["./test/specs/**/*.js"],
+  specs: ["./test/specs/**/poTest.js"],
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
@@ -213,8 +214,15 @@ exports.config = {
    * Hook that gets executed _after_ a hook within the suite starts (e.g. runs after calling
    * afterEach in Mocha)
    */
-  // afterHook: function (test, context, { error, result, duration, passed, retries }) {
-  // },
+  afterHook: function (
+    test,
+    context,
+    { error, result, duration, passed, retries }
+  ) {
+    if (error) {
+      browser.takeScreenshot();
+    }
+  },
   /**
    * Function to be executed after a test (in Mocha/Jasmine only)
    * @param {Object}  test             test object
@@ -277,4 +285,13 @@ exports.config = {
    */
   //onReload: function(oldSessionId, newSessionId) {
   //}
+  reporters: [
+    [
+      "allure",
+      {
+        outputDir: "allure-results",
+        disableWebdriverScreenshotsReporting: false,
+      },
+    ],
+  ],
 };
