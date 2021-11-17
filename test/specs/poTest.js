@@ -10,4 +10,10 @@ describe("Login Scenarios", () => {
       await browser.pause(5000);
     });
   });
+
+  it("Login to the application - sanity", async () => {
+    await browser.url("https://rahulshettyacademy.com/loginpagePractise/#");
+    await loginPage.Login("", "");
+    await browser.pause(5000);
+  });
 });
